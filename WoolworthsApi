@@ -1,0 +1,21 @@
+import requests
+import json
+
+url = 'https://www.woolworths.com.au/apis/ui/ProductGroup/Products/0407-wk2-half-price-specials'
+data = {"PageNumber":1,"PageSize":30,"SortType":"ProductGroupDisplayOrder","Filters":[],"Location":"/shop/productgroup/0407-wk2-half-price-specials?pageNumber=2"}
+
+#print('Test')
+r = requests.post(url, data=data)
+# // print(r.text)
+d = json.loads(r.text)
+#print(d['Items'][0]['Name'])
+
+for item in d['Items']:    
+    print (item['Name'])
+    product = item['Products'][0]
+    print(str(product['Price']) + " - "  + str(item['Products'][0]['WasPrice']))
+    print(item['Products'][0]['MediumImageFile'])
+    print(product['AdditionalAttributes']['sapcategoryname'])
+    #print(product['AdditionalAttributes'])
+    #AdditionalAttributes
+    #MediumImageFile
