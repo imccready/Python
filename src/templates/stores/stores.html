@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<div>Total items: {{items|length}}</div>
+<table class="table table-specials">
+  <thead class="">
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Last on special</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for item in items %}
+    <tr>
+      <td>
+          <img src={{item.image_url}} height="62" width="62">
+      </td>
+      <td>
+          <a href={{item.url}}>{{item.name}}</a>
+      </td>
+      <td>
+          ${{item.price}}
+      </td>
+      <td>
+          <!--{{item.last_date}}-->
+         <!-- {% for dates in item.on_special_dates %}
+        <div>{{dates}}</div>
+          {% endfor %} -->
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
