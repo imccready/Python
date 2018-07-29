@@ -1,5 +1,3 @@
-pymongo
 Flask
-beautifulsoup4
 requests
 google-cloud-datastore
