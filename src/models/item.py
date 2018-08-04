@@ -31,6 +31,7 @@ class Item(object):
     def get_update_entity(self):
         entity = Datastore.get_entity_for_update(Item.item_datastore_name, self.id, self.json())
         entity.exclude_from_indexes = "[image_url, url]"
+        return entity
 
     def save_to_db(self):
         Datastore.insert(collection='item_specials',

@@ -20,7 +20,8 @@ app.register_blueprint(store_blueprint, url_prefix="/stores")
 
 
 if __name__ == '__main__':
-    Specials.save_current_specials()
+    specials: Specials = Specials()
+    specials.save_current_specials()
 
     #Database.initialize()
 

@@ -3,6 +3,7 @@ from src.Specials.stores.Woolworths.models.specials_group import Specials_Group
 from src.common.request import Request
 from src.common.utilities import Utilities
 from src.models.item import Item
+from typing import List
 
 class Woolworths(object):
     def __init__(self):
@@ -45,7 +46,7 @@ class Woolworths(object):
         product_count = specials_group.product_count
 
         #get rid of
-        product_count = 2
+        #product_count = 2
 
         call_pages = Utilities.generate_paging_array(product_count, constants.WOOLWORTHS_ITEMS_PER_PAGE)
 
@@ -60,12 +61,12 @@ class Woolworths(object):
         return items
 
     def get_items(self, json_response):
-        items = []
+        items: List(Item) = []
         if json_response is not None and json_response['Success'] == True:
             for product in json_response['Bundles']:
                 product = product['Products'][0]
 
-                item = Item( product_code= product['Stockcode'],
+                item: Item = Item( product_code= product['Stockcode'],
                              barcode=product['Barcode'],
                              store=constants.WOOLWORTHS,
                              name=product['Name'],

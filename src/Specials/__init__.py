@@ -4,11 +4,12 @@ from src.common.datastore import Datastore
 
 
 class Specials(object):
+    pass
 
-    @staticmethod
-    def save_current_specials():
+
+    def save_current_specials(self):
         Datastore.initialize()
-        woolies = Woolworths()
+        woolies: Woolworths = Woolworths()
         specials = woolies.get_specials
-        storage = Storage()
+        storage: Storage = Storage()
         storage.store_items(specials)

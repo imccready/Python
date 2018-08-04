@@ -1,33 +1,38 @@
 import json
 
 from src.common.datastore import Datastore
-from src.models.history.item_history_entry import ItemHistoryEntry
+from src.common.utilities import Utilities
+from src.models.history.item_history_entry import ItemHistoryEntry, ItemHistoryEntryByMonth
 
 
 class ItemHistory(object):
     datastore_name = "ItemSpecialsHistory"
 
-    def __init__(self, id, barcode, name, item_history_list=None, item_history_by_month=None):
-        self.id = id
+    def __init__(self, id:int, barcode:str, name:str, item_history_list_json: str=None, item_history_by_month_json: str=None):
+        self.id  = id
         self.barcode = barcode
         self.name = name
-        self.item_history_list = item_history_list if item_history_list is not None else []
-        self.item_history_by_month = item_history_by_month if item_history_by_month is not None else []
+        self.item_history_list = Utilities.decodeList(item_history_list_json)
+        self.item_history_by_month = Utilities.decodeList(item_history_by_month_json)
 
 
     def update(self, store, price):
-        item_history = ItemHistoryEntry( store=store, price=price )
+        # todo fix this
+        item_history: ItemHistoryEntry = ItemHistoryEntry( store=store, price=price )
         if item_history not in self.item_history_list:
             self.item_history_list.append( item_history )
 
+        item_history_by_month: ItemHistoryEntryByMonth = ItemHistoryEntryByMonth(store=store, price=price)
+        if item_history_by_month not in self.item_history_by_month:
+            self.item_history_by_month.append(item_history_by_month)
 
-    def json(self):
+    def json(self) -> str:
         return {
-            'id' : self.id,
-            'barcode' : self.barcode,
-            'name' : self.name,
-            'item_history_list' : "{" + json.dumps([ ob.__dict__ for ob in self.item_history_list ]) +"}",
-            'item_history_by_month' : json.dumps([ ob.__dict__ for ob in self.item_history_by_month ])
+             'id' : self.id,
+             'barcode' : self.barcode,
+             'name' : self.name,
+             'item_history_list_json' : Utilities.encode(self.item_history_list),
+             'item_history_by_month_json' : Utilities.encode(self.item_history_by_month)
         }
 
     @property
