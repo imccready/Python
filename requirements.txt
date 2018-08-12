@@ -3,3 +3,4 @@ requests
 google-cloud-datastore
 jsonpickle
 flask-restful
+flask_cors

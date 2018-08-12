@@ -1,10 +1,14 @@
 from flask import Flask
 from flask_restful import Api
+from flask_cors import CORS
+
 from api.items import ItemsService, api_items
 from datastore import Datastore
 
 
+
 app = Flask(__name__)
+CORS(app)
 api = Api(app)
 
 @app.before_first_request
