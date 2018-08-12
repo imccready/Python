@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ItemsService } from './specials/items.service';
-import { Item } from './specials/item.model';
+import { Items, Item } from './specials/item.model';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +10,8 @@ import { Item } from './specials/item.model';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'angular';
-  items: Item[]
+  title = 'Specials';
+  items: Item[] = []
   constructor(private itemService: ItemsService) {
 
   }
@@ -18,7 +20,7 @@ export class AppComponent {
     this.itemService.getItems()
     .subscribe((items: Item[]) => {
       this.items = items
-    }) 
+    })
   }
 
 }

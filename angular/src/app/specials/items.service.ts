@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Item } from './item.model';
+import { Item, Items } from './item.model';
 import {API_URL} from '../env';
 
 
