@@ -1,0 +1,10 @@
+runtime: python37
+api_version: 1
+service: items
+
+handlers:
+- url: /.*
+  script: main.app
+
+
+

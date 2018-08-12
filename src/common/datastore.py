@@ -1,6 +1,5 @@
 import time
 
-import pymongo
 from google.cloud import datastore
 
 from src import constants
