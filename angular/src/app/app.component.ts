@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ItemsService } from './specials/items.service';
+import { Item } from './specials/item.model';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,16 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular';
+  items: Item[]
+  constructor(private itemService: ItemsService) {
+
+  }
+
+  ngOnInit() {
+    this.itemService.getItems()
+    .subscribe((items: Item[]) => {
+      this.items = items
+    }) 
+  }
+
 }
