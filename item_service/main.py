@@ -1,7 +1,8 @@
 from flask import Flask
 from flask_restful import Api
-from api.items import ItemsService
+from api.items import ItemsService, api_items
 from datastore import Datastore
+
 
 app = Flask(__name__)
 api = Api(app)
@@ -10,8 +11,6 @@ api = Api(app)
 def init_db():
     Datastore.initialize()
 
-api.add_resource(ItemsService, '/')
-
-
+app.register_blueprint(api_items)
 
 
