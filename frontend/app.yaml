@@ -1,0 +1,14 @@
+runtime: python37
+api_version: 1
+service: default
+
+handlers:
+- url: /(.+)
+  static_files: static/\1
+  upload: static/.*
+- url: /
+  static_files: static/index.html
+  upload: static/index.html
+
+
+

@@ -3,8 +3,8 @@
   <h1>
     Welcome to {{ title }}!
   </h1>
-<div *ngFor="let item of items" >
-  {{item.name}} - {{item.price}}
+<div class="card-group"  >
+  <app-item *ngFor="let item of items" [item]=item></app-item>
 </div>
 
 

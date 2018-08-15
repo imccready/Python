@@ -17,7 +17,13 @@ fields = {
     'category': fields.String,
     'sub_category': fields.String,
     'store': fields.String,
-    'url': fields.String
+    'url': fields.String,
+    'image_url': fields.String,
+    'product_code' : fields.String,
+    'store': fields.String,
+    'barcode' : fields.String
+
+
 }
 
 class ItemsService(Resource):

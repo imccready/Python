@@ -14,7 +14,7 @@ class Datastore(object):
     @staticmethod
     def query(cls: object) -> object:
         _query = Datastore.DATASTORE_CLIENT.query(kind=cls.collection)
-        query_results =  list(_query.fetch(limit=5))
+        query_results =  list(_query.fetch(limit=100))
         results: List[type] = []
         for data in query_results:
             value = cls(**data)
@@ -22,11 +22,18 @@ class Datastore(object):
         return results
 
 
-
-    # for data in items_data:
-    #     item = Item(**data)
-    #     items.append(item)
-    # return items
+    # @staticmethod
+    # def query_paging(cls: object, cursor=None):
+    #     _query = Datastore.DATASTORE_CLIENT.query(kind=cls.collection)
+    #     query_iter =  _query.fetch(start_cursor=cursor, limit=100)
+    #     page = next(query_iter.pages)
+    #     items = list(page)
+    #     results: List[type] = []
+    #     for data in items:
+    #         value = cls(**data)
+    #         results.append(value)
+    #     next_cursor = query_iter.next_page_token
+    #     return results, next_cursor
 
 
     @staticmethod
