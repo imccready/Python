@@ -13,6 +13,7 @@ import * as _ from "lodash";
 export class AppComponent {
   title = 'Specials';
   items: any = undefined
+  groups: Item[][] = undefined
   //items: any = undefined
   constructor(private itemService: ItemsService) {
 
@@ -21,7 +22,7 @@ export class AppComponent {
   ngOnInit() {
     this.itemService.getItems()
     .subscribe((itemz: Item[]) => {
-      //this.items = _.chunk(itemz, 3)
+      this.groups = _.chunk(itemz, 4)
       this.items = itemz
       console.log(this.items.length)
       console.log(this.items[0].length)

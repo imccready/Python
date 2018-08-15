@@ -3,8 +3,21 @@
   <h1>
     Welcome to {{ title }}!
   </h1>
-<div class="card-group"  >
-  <app-item *ngFor="let item of items" [item]=item></app-item>
+<div  >
+
+<div class="mx-auto content">
+
+
+  <div *ngFor="let row of groups" class="">
+      <div *ngFor="let item of row" class=" row-group">
+        <app-item [item]=item></app-item>
+      </div>
+  </div>
+
+
+</div>
+
+  <!--<app-item *ngFor="let item of items" [item]=item></app-item> -->
 </div>
 
 
