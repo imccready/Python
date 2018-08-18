@@ -14,7 +14,7 @@ class Datastore(object):
     @staticmethod
     def query(cls: object) -> object:
         _query = Datastore.DATASTORE_CLIENT.query(kind=cls.collection)
-        query_results =  list(_query.fetch(limit=100))
+        query_results =  list(_query.fetch())
         results: List[type] = []
         for data in query_results:
             value = cls(**data)

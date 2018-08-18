@@ -1,0 +1,10 @@
+runtime: python37
+api_version: 1
+service: specials-extractor
+
+handlers:
+- url: /categories
+  script: main.app
+
+- url: /_ah/push-handlers/.*
+  script: main.app

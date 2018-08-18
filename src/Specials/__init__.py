@@ -8,8 +8,8 @@ class Specials(object):
 
 
     def save_current_specials(self):
-        Datastore.initialize()
+        #Datastore.initialize()
         woolies: Woolworths = Woolworths()
         specials = woolies.get_specials
-        storage: Storage = Storage()
-        storage.store_items(specials)
+        #storage: Storage = Storage()
+        #storage.store_items(specials)

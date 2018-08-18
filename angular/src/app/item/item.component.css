@@ -1,11 +1,13 @@
 img {
-    width: 60px;
+    width: 90px;
 }
 
-.test {
-
+.media {
+    display:block;
 }
 
-.desc {
-    width:150px;
+
+
+.item-contents, .item-image {
+    display: inline-block;
 }

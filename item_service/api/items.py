@@ -1,6 +1,6 @@
-from flask import Flask, Blueprint
-from flask_restful import Resource, fields, marshal_with
-from flask_restful import Api
+from flask import Flask, Blueprint, request
+from flask_restful import Resource, fields, marshal_with, Api, reqparse
+import logging
 
 from model.item import Item
 from typing import List
@@ -22,8 +22,6 @@ fields = {
     'product_code' : fields.String,
     'store': fields.String,
     'barcode' : fields.String
-
-
 }
 
 class ItemsService(Resource):
@@ -31,5 +29,24 @@ class ItemsService(Resource):
     def get(self):
         items: List[Item] = Datastore.query(Item)
         return items
+
+    def put(self):
+        logging.info("Put items...")
+        test = request.data
+        logging.info("items... " + str(test))
+        print("items..." + str(test))
+        logging.error("items... " + str(test))
+        logging.debug("Debugz")
+        logging.debug("items... " + str(test))
+
+
+        #parser = reqparse.RequestParser()
+        #parser.add_argument('test')
+        ##parser.add_argument('test', type=str, help='Rate to charge for this resource')
+        #args = parser.parse_args()
+
+        #print(args)
+
+        return {'success': 'true', 'Hello': 'World'}
 
 api.add_resource(ItemsService, '/')
