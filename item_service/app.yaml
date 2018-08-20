@@ -3,8 +3,8 @@ api_version: 1
 service: items
 
 handlers:
-- url: /.*
+- url: /items
   script: main.app
 
-
-
+- url: /_ah/push-handlers/item
+  script: main.app

@@ -21,6 +21,32 @@ class Datastore(object):
             results.append(value)
         return results
 
+    @staticmethod
+    def insert(collection, key, data, excludeFromIndex=None):
+        task_key = Datastore.DATASTORE_CLIENT.key(collection, key)
+        if excludeFromIndex is not None:
+            task = datastore.Entity(key=task_key,
+                                exclude_from_indexes=excludeFromIndex)
+        else:
+            task = datastore.Entity(key=task_key)
+        task.update(data)
+        Datastore.DATASTORE_CLIENT.put(task)
+
+    # def properties(client):
+    #     key = client.key('Task')
+    #     # [START datastore_properties]
+    #     task = datastore.Entity(
+    #         key,
+    #         exclude_from_indexes=['description'])
+    #     task.update({
+    #         'category': 'Personal',
+    #         'description': 'Learn Cloud Datastore',
+    #         'created': datetime.datetime.utcnow(),
+    #         'done': False,
+    #         'priority': 4,
+    #         'percent_complete': 10.5,
+    #     })
+    #     # [END datastore_properties]
 
     # @staticmethod
     # def query_paging(cls: object, cursor=None):

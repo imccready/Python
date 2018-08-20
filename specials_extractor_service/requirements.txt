@@ -4,3 +4,5 @@ flask-restful
 flask-cors
 google-cloud-pubsub==0.35.0
 jsonpickle
+google-cloud-logging
+six==1.10
