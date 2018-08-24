@@ -15,6 +15,19 @@ export class ItemsService {
       }
 
     getItems(): Observable<Item[]> {
+        /* let data = {"categoryId":"specialsgroup.1354","pageNumber":1,"pageSize":36,
+        "sortType":"TraderRelevance",
+        "url":"/shop/browse/specials/half-price",
+        "location":"/shop/browse/specials/half-price",
+        "formatObject":"{\"name\":\"Half Price\"}",
+        "isSpecial":true,"isBundle":false,"isMobile":false,"filters":null}
+
+        let results = this.http.post("https://www.woolworths.com.au/apis/ui/browse/category", data )
+
+        console.log(results) */
+
+        
+
         return this.http.get<Item[]>(`${API_URL}`)
     }
 

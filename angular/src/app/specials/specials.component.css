@@ -1,13 +1,15 @@
 .item {
      /* width: 400px;
     height:250px;
-    float: left; */
-    display:inline-block;
-    width: 300px;
-    height: 200px;
+    float: left; 
+    height: 100px;
+    display:inline-flex; */
+
+    display:inline-flex;
+   
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);
+    
     margin: 5px;
-    padding: 10px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #DCDCDC;
+    padding: 10px; 
+    
 }

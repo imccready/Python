@@ -1,20 +1,19 @@
-<div class="media"> 
-    <div>{{item.name}} </div>
-
-   
-    <div class="row">
-        <div class="col">
-            <img class="card-img-top" src="{{item.image_url}}" alt="Card image cap">
-        </div>
-        <div class="col">
-            {{item.price | currency}}
-            {{item.category}}
-            {{item.sub_category}}
+<div class="media item-content">
+    <div class="image">
+        <img class="mr-3" src="{{item.images.MediumImageFile}}">
+        <div class="unitstring">
+            <small> ({{item.unitPricing.UnitString}})</small>
         </div>
     </div>
-
- 
-
+    
+    <div class="media-body item-details">
+        <div class="item-name">
+            {{item.name}}
+        </div>
+        <div class="unitstring">
+            <strong>{{item.price | currency}}</strong> 
+        </div>
+        
+        
+    </div>
 </div>
-
-

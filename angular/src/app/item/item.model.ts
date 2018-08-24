@@ -1,28 +1,41 @@
-export interface IItem { 
+export class Items {
+    items: Item[]
+    cursor: string
+}
+
+export class Images {
+    SmallImageFile: string
+    MediumImageFile: string 
+    LargeImageFile: string 
+}
+
+export class ItemDetails {
+    UrlFriendlyName: string
+    PackageSize: string
+    Description: string
+    IsNew: boolean
+    FullDescription: string
+    Unit: string
+    WasPrice: number
+    SmallFormatDescription: string
+    SavingsAmount: number
+}
+
+export class UnitPricing {
+    UnitString: string
+}
+
+export class Item  {
     name: string
-    category: string
-    sub_category: string
+    categoryLevel1: string
+    categoryLevel2: string
+    categoryLevel3: string
     price: number
     url: string
-    image_url: string
+    images: Images
     store: string
     barcode: string
-    product_code: string
-}
-export class Item implements IItem {
-    name: string;
-    category: string;
-    sub_category: string;
-    price: number;
-    url: string;
-    image_url: string;
-    store: string;
-    barcode: string;
-    product_code: string;
-    
-    constructor() {
-
-    }
-   
-    
+    stockcode: string
+    itemDetails: ItemDetails
+    unitPricing: UnitPricing
 }
