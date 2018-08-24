@@ -21,10 +21,9 @@ class SpecialsCategoriesService(Resource):
         self.log.log_text("Get specials categories")
         woolworths = Woolworths()
         categories = woolworths.get_categories_with_specials()
-        lastRun = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
+        lastRun = datetime.datetime.now().strftime('%d/%m/%Y')
         #for category in categories[0:1]:
         for category in categories:
-
             data = {
                 'Store': constants.WOOLWORTHS,
                 'Data': category.json(),

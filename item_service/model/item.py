@@ -1,17 +1,21 @@
 import datetime
-
+from barely_json import parse
 
 class Item(object):
     collection = "ItemsOnSpecial"
 
-    def __init__(self, barcode, category, image_url, last_updated, name, price, product_code, store, sub_category, url):
-        self.barcode = barcode
-        self.category = category
-        self.image_url = image_url
-        self.last_updated = last_updated
-        self.name = name
-        self.price = price
-        self.product_code = product_code
-        self.store = store
-        self.sub_category = sub_category
-        self.url = url
+    def __init__(self, Barcode, Brand,  CategoryLevel1: str, CategoryLevel2: str, CategoryLevel3, Description, Images, ItemDetails, LastRun, Name, Price, Stockcode, Store, UnitPricing):
+        self.barcode: str = Barcode
+        self.brand = Brand,
+        self.categoryLevel1 = CategoryLevel1,
+        self.categoryLevel2 = CategoryLevel2,
+        self.categoryLevel3 = CategoryLevel3,
+        self.description = Description,
+        self.itemDetails = ItemDetails
+        self.lastRun = LastRun
+        self.name = Name
+        self.price = Price
+        self.stockcode: str = Stockcode
+        self.store = Store
+        self.unitPricing = UnitPricing
+        self.images = Images

@@ -24,6 +24,5 @@ class SpecialsGroup(object):
             'isSpecial': str(self.is_special).lower(),
             'isBundle': str(self.is_bundle).lower(),
             'isMobile': 'false',
-
             'filters': []
         }

@@ -15,7 +15,8 @@ api = Api(api_specials)
 class SpecialsService(Resource):
     log = GoogleLogger()
     publisher = pubsub_v1.PublisherClient()
-    topic_path = publisher.topic_path("python-1531294257716", "add-item")
+    topic_path_add_item = publisher.topic_path("python-1531294257716", "add-item")
+    topic_path_add_item_history = publisher.topic_path("python-1531294257716", "add-item-history")
 
     def post(self):
         self.log.log_text("Specials Request: {}".format(request.data))
@@ -31,9 +32,6 @@ class SpecialsService(Resource):
     def getItems(self, request_json):
         url = constants.WOOLWORTH_ITEM_URL
         data = request_json['Data']
-        lastRun = request_json['LastRun']
-        store = request_json['Store']
-        specialDesc = request_json['Description']
 
         # this a hack for now
         data['formatObject'] = "{\"name\":\"Half Price\"}"
@@ -43,47 +41,65 @@ class SpecialsService(Resource):
         for product in items_response['Bundles']:
             product = product['Products'][0]
 
-            item = {
-                'Stockcode': product['Stockcode'],
-                'Barcode':product['Barcode'],
-                'Brand': product['Brand'],
-                'Price': product['Price'],
-                'Name': product['Name'],
-                'Store': store,
-                'Description': specialDesc,
-                'Images': {
-                    'SmallImageFile': product['SmallImageFile'],
-                    'MediumImageFile': product['MediumImageFile'],
-                    'LargeImageFile': product['LargeImageFile']
-                },
-                'UnitPricing' : {
-                    'UnitPrice': product['CupPrice'],
-                    'UnitMeasure': product['CupMeasure'],
-                    'UnitString': product['CupString'],
-                    'HasUnitPrice': product['HasCupPrice'],
-                },
-                'ItemDetails': {
-                    'IsNew': product['IsNew'],
-                    'Description': product['Description'],
-                    'SmallFormatDescription': product['SmallFormatDescription'],
-                    'FullDescription': product['FullDescription'],
-                    'PackageSize': product['PackageSize'],
-                    'Unit': product['Unit'],
-                    'SavingsAmount': product['SavingsAmount'],
-                    'WasPrice': product['WasPrice'],
-                    'UrlFriendlyName': product['UrlFriendlyName'],
-                },
-                'CategoryLevel-1': self.escape ( product['AdditionalAttributes']['piesdepartmentnamesjson'] ),
-                'CategoryLevel-2': self.escape ( product['AdditionalAttributes']['piescategorynamesjson'] ),
-                'CategoryLevel-3': self.escape ( product['AdditionalAttributes']['piessubcategorynamesjson'] ),
-                'LastRun': lastRun
-            }
-
-            data = u'{}'.format(item).encode('utf-8')
-            self.log.log_text("Publish specials: " + str(data))
-            self.publisher.publish(self.topic_path, data=data)
+            self.publish_item(product, request_json)
+            self.publish_item_history(product, request_json)
 
 
+    #TODO Move this elsewhere
+    def publish_item_history(self, product, request_json):
+        item_history = {
+            'Stockcode': product['Stockcode'],
+            'Barcode': product['Barcode'],
+            'Price': product['Price'],
+            'Name': product['Name'],
+            'Store': request_json['Store'],
+            'Date': request_json['LastRun']
+        }
+        data = u'{}'.format(item_history).encode('utf-8')
+        self.log.log_text("Publish items history: " + str(data))
+        self.publisher.publish(self.topic_path_add_item_history, data=data)
+
+    # TODO Move this elsewhere
+    def publish_item(self, product, request_json):
+        item = {
+            'Stockcode': product['Stockcode'],
+            'Barcode': product['Barcode'],
+            'Brand': product['Brand'],
+            'Price': product['Price'],
+            'Name': product['Name'],
+            'Store': request_json['Store'],
+            'SpecialsCategory': request_json['Description'],
+            'Images': {
+                'SmallImageFile': product['SmallImageFile'],
+                'MediumImageFile': product['MediumImageFile'],
+                'LargeImageFile': product['LargeImageFile']
+            },
+            'UnitPricing': {
+                'UnitPrice': product['CupPrice'],
+                'UnitMeasure': product['CupMeasure'],
+                'UnitString': product['CupString'],
+                'HasUnitPrice': product['HasCupPrice'],
+            },
+            'ItemDetails': {
+                'IsNew': product['IsNew'],
+                'Description': product['Description'],
+                'SmallFormatDescription': product['SmallFormatDescription'],
+                'FullDescription': product['FullDescription'],
+                'PackageSize': product['PackageSize'],
+                'Unit': product['Unit'],
+                'SavingsAmount': product['SavingsAmount'],
+                'WasPrice': product['WasPrice'],
+                'UrlFriendlyName': product['UrlFriendlyName'],
+            },
+            'CategoryLevel1': self.escape(product['AdditionalAttributes']['piesdepartmentnamesjson']),
+            'CategoryLevel2': self.escape(product['AdditionalAttributes']['piescategorynamesjson']),
+            'CategoryLevel3': self.escape(product['AdditionalAttributes']['piessubcategorynamesjson']),
+            'LastRun': request_json['LastRun']
+        }
+
+        data = u'{}'.format(item).encode('utf-8')
+        self.log.log_text("Publish items: " + str(data))
+        self.publisher.publish(self.topic_path_add_item, data=data)
 
     def escape(self, value: str):
         return value.replace('"', '')

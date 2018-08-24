@@ -1,0 +1,7 @@
+Flask
+google-cloud-datastore
+flask-restful
+flask-cors
+google-cloud-logging
+barely_json
+six==1.10

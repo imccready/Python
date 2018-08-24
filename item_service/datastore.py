@@ -32,34 +32,21 @@ class Datastore(object):
         task.update(data)
         Datastore.DATASTORE_CLIENT.put(task)
 
-    # def properties(client):
-    #     key = client.key('Task')
-    #     # [START datastore_properties]
-    #     task = datastore.Entity(
-    #         key,
-    #         exclude_from_indexes=['description'])
-    #     task.update({
-    #         'category': 'Personal',
-    #         'description': 'Learn Cloud Datastore',
-    #         'created': datetime.datetime.utcnow(),
-    #         'done': False,
-    #         'priority': 4,
-    #         'percent_complete': 10.5,
-    #     })
-    #     # [END datastore_properties]
 
-    # @staticmethod
-    # def query_paging(cls: object, cursor=None):
-    #     _query = Datastore.DATASTORE_CLIENT.query(kind=cls.collection)
-    #     query_iter =  _query.fetch(start_cursor=cursor, limit=100)
-    #     page = next(query_iter.pages)
-    #     items = list(page)
-    #     results: List[type] = []
-    #     for data in items:
-    #         value = cls(**data)
-    #         results.append(value)
-    #     next_cursor = query_iter.next_page_token
-    #     return results, next_cursor
+
+    @staticmethod
+    def query_paging(cls: object, cursor=None):
+         _query = Datastore.DATASTORE_CLIENT.query(kind=cls.collection)
+         _query.order = ['Brand']
+         query_iter =  _query.fetch(start_cursor=cursor, limit=20)
+         page = next(query_iter.pages)
+         items = list(page)
+         results: List[type] = []
+         for data in items:
+             value = cls(**data)
+             results.append(value)
+         next_cursor = query_iter.next_page_token
+         return results, next_cursor
 
 
     @staticmethod

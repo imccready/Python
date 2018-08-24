@@ -13,12 +13,6 @@ CORS(app)
 api = Api(app)
 app.wsgi_app = DebuggedApplication(app.wsgi_app, True)
 
-try:
-  import googleclouddebugger
-  googleclouddebugger.enable()
-except ImportError:
-  pass
-
 
 @app.before_first_request
 def init_db():
