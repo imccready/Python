@@ -50,7 +50,7 @@ item_fields =  {
         'categoryLevel2': fields.String,
         'categoryLevel3': fields.String,
         'store': fields.String,
-        'description': fields.String,
+        'SpecialsCategory': fields.String,
         'itemDetails': fields.Nested(item_details),
         'stockcode' : fields.String,
         'store': fields.String,

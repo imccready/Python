@@ -1,0 +1,6 @@
+cron:
+
+- description: "run every wed"
+  url: /categories
+  schedule: every wednesday 09:00
+  target: specials-extractor

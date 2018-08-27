@@ -34,6 +34,6 @@ class SpecialsCategoriesService(Resource):
             self.log.log_text("Publish specials categories: " + str(data))
             self.publisher.publish(self.topic_path, data=data.encode('utf-8'))
 
-        return {'success': 'true'}, 200
+        return 'Categories publish completed', 200
 
 api.add_resource(SpecialsCategoriesService, '/categories')
